@@ -2,15 +2,15 @@
 
 The goal of this project is to provide a Python-based starter API, which comes pre-configured with tools supporting the accelerated development of both Comet as well as general python APIs. Some of these tools are as follows:
 
-Platform: Python
-Web Framework: Fast API
-Database: PostgreSQL (coming soon)
-ORM: SQLAlchemy (coming soon)
-Unit Testing: PyTest and unittest (coming soon)
-Code Analysis: Ruff (coming soon)
-Code Formatting: Ruff (coming soon)
-Authentication support: JWT (coming soon)
-Documentation: ReDoc (coming soon)
+- Platform: Python
+- Web Framework: Fast API
+- Database: PostgreSQL (coming soon)
+- ORM: SQLAlchemy (coming soon)
+- Unit Testing: PyTest and unittest (coming soon)
+- Code Analysis: Ruff (coming soon)
+- Code Formatting: Ruff (coming soon)
+- Authentication support: JWT (coming soon)
+- Documentation: ReDoc (coming soon)
 
 ## Table of Contents
 
