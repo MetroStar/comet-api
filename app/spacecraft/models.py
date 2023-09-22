@@ -1,21 +1,10 @@
-from pydantic import BaseModel
-from typing import Optional
 from sqlalchemy.orm import Session
 from sqlalchemy import Column, String, Integer
 
 from app.db import Base
+from app.spacecraft.schemas import Spacecraft
 
-# A Pydantic Spacecraft
-class Spacecraft(BaseModel):
-    id: int
-    name: Optional[str] = None
-    description: Optional[str] = None
-    category: Optional[str] = None
-
-    class Config:
-        orm_mode = True
-
-# A SQLAlchemny ORM Spacecraft
+# SQLAlchemy Model
 class DBSpacecraft(Base):
     __tablename__ = 'spacecraft'
 
