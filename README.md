@@ -20,16 +20,23 @@ The goal of this project is to provide a Python-based starter API, which comes p
 
 ## Running the Project Locally
 
-1. To install dependencies, run the following:
+1. To create an environment, run the following:
 
 ```sh
-[SOME SCRIPT]
+virtualenv -p python3 venv
+source venv/bin/activate
 ```
 
-2. To start the app, run the following:
+2. To install dependencies, run the following:
 
 ```sh
-[SOME_SCRIPT]
+pip install -r requirements.txt
+```
+
+3. To start the app, run the following:
+
+```sh
+uvicorn app.main:app --reload --host=0.0.0.0 --port=5000
 ```
 
 ## Running Unit Tests
