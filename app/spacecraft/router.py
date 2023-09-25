@@ -16,13 +16,22 @@ db_session = Annotated[Session, Depends(get_db)]
 
 @router.get('/spacecraft', response_model=List[Spacecraft])
 def get_all_spacecraft(db: db_session):
-    return model.get_all_spacecraft(db)
+    return model.get_items(db)
 
-@router.get('/spacecraft/{id}')
+@router.get('/spacecraft/{id}', response_model=Spacecraft)
 def get_spacecraft(id: int, db: db_session):
-    return model.get_spacecraft(db, id)
+    return model.get_item(db, id)
 
 @router.post('/spacecraft/', response_model=Spacecraft)
 def create_spacecraft(spacecraft: Spacecraft, db: db_session):
-    db_spacecraft = model.create_spacecraft(db, spacecraft)
+    db_spacecraft = model.create_item(db, spacecraft)
     return db_spacecraft
+
+@router.put('/spacecraft/{id}', response_model=Spacecraft)
+def update_spacecraft(id: int, spacecraft: Spacecraft, db: db_session):
+    db_spacecraft = model.update_item(db, id, spacecraft)
+    return db_spacecraft
+
+@router.delete('/spacecraft/{id}')
+def delete_spacecraft(id: int, db: db_session):
+    model.delete_item(db, id)
