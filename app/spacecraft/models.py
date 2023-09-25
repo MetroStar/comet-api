@@ -16,7 +16,7 @@ class DBSpacecraft(Base):
 def get_spacecraft(db: Session, spacecraft_id: int):
     return db.query(DBSpacecraft).where(DBSpacecraft.id == spacecraft_id).first()
 
-def get_spacecraft(db: Session):
+def get_all_spacecraft(db: Session):
     return db.query(DBSpacecraft).all()
 
 def create_spacecraft(db: Session, spacecraft: Spacecraft):
