@@ -5,7 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from app.config import settings
+from app.config.config import settings
 from app.spacecraft.models import DBSpacecraft
 
 # this is the Alembic Config object, which provides

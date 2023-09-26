@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+
 from app.db import Base, engine
 from app.spacecraft.router import router
 

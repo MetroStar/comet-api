@@ -8,8 +8,7 @@ The goal of this project is to provide a Python-based starter API, which comes p
 - ORM: SQLAlchemy, Alembic
 - Data Validation: Pydantic
 - Unit Testing: PyTest and unittest (coming soon)
-- Code Analysis: Ruff (coming soon)
-- Code Formatting: Ruff (coming soon)
+- Code Quality: Ruff, PyLint, Black, isort
 - Authentication support: JWT (coming soon)
 - Documentation: Swagger and ReDoc
 
@@ -17,7 +16,8 @@ The goal of this project is to provide a Python-based starter API, which comes p
 
 1. [Running the Project Locally](#running-the-project-locally)
 2. [Running Unit Tests](#running-unit-tests)
-3. [Contributing](#contributing)
+3. [Running Code Quality Checks](#running-code-quality-checks)
+4. [Contributing](#contributing)
 
 ## Running the Project Locally
 
@@ -52,6 +52,14 @@ uvicorn app.main:app --reload --host=0.0.0.0 --port=5000
 
 ```sh
 [SOME SCRIPT]
+```
+
+## Running Code Quality Checks
+
+1. To run code quality checks, run the following:
+
+```sh
+ruff check .
 ```
 
 ## Contributing
