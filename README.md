@@ -34,7 +34,13 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-3. To start the app, run the following:
+3. To prepare your environment, add a file called `.env` to the `comet-api` directory. Copy and paste the template below and replace the placeholder values with your own:
+
+```
+DATABASE_URL=[SOME_URL] # Ex: 'sqlite:///./db.sqlite3'
+```
+
+4. To start the app, run the following:
 
 ```sh
 uvicorn app.main:app --reload --host=0.0.0.0 --port=5000
