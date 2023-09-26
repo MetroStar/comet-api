@@ -1,5 +1,8 @@
+alembic
 fastapi
 pydantic
+pydantic-settings
 pysqlite3
+python-dotenv
 sqlalchemy
 uvicorn[standard]

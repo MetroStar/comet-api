@@ -4,13 +4,14 @@ The goal of this project is to provide a Python-based starter API, which comes p
 
 - Platform: Python
 - Web Framework: Fast API
-- Database: PostgreSQL (coming soon)
-- ORM: SQLAlchemy (coming soon)
+- Database: SQLite
+- ORM: SQLAlchemy, Alembic
+- Data Validation: Pydantic
 - Unit Testing: PyTest and unittest (coming soon)
 - Code Analysis: Ruff (coming soon)
 - Code Formatting: Ruff (coming soon)
 - Authentication support: JWT (coming soon)
-- Documentation: ReDoc (coming soon)
+- Documentation: Swagger and ReDoc
 
 ## Table of Contents
 
@@ -33,7 +34,13 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-3. To start the app, run the following:
+3. To prepare your environment, add a file called `.env` to the `comet-api` directory. Copy and paste the template below and replace the placeholder values with your own:
+
+```
+DATABASE_URL=[SOME_URL] # Ex: 'sqlite:///./db.sqlite3'
+```
+
+4. To start the app, run the following:
 
 ```sh
 uvicorn app.main:app --reload --host=0.0.0.0 --port=5000

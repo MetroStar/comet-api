@@ -4,9 +4,11 @@ from typing import Optional
 # Pydantic Model
 class Spacecraft(BaseModel):
     id: int
-    name: Optional[str] = None
+    name: str
     description: Optional[str] = None
-    category: Optional[str] = None
+    affiliation: Optional[str] = None
+    dimensions: Optional[str] = None
+    appearances: int
 
     class Config:
         from_attributes = True

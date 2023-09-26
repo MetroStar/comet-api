@@ -17,7 +17,9 @@ def update_item(db: Session, id: int, spacecraft: Spacecraft):
 
     db_spacecraft.name = spacecraft.name
     db_spacecraft.description = spacecraft.description
-    db_spacecraft.category = spacecraft.category
+    db_spacecraft.affiliation = spacecraft.affiliation
+    db_spacecraft.dimensions = spacecraft.dimensions
+    db_spacecraft.appearances = spacecraft.appearances
     db.add(db_spacecraft)
     db.commit()
     db.refresh(db_spacecraft)
