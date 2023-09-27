@@ -51,7 +51,13 @@ uvicorn app.main:app --reload --host=0.0.0.0 --port=5000
 1. To run unit tests, run the following:
 
 ```sh
-[SOME SCRIPT]
+pytest
+```
+
+2. To run unit tests with code coverage, run the following:
+
+```sh
+coverage run -m pytest && coverage html
 ```
 
 ## Running Code Quality Checks

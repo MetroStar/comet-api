@@ -1,4 +1,5 @@
 alembic
+coverage
 fastapi
 httpx
 pydantic-settings
