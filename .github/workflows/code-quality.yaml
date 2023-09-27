@@ -10,6 +10,9 @@ on:
 permissions:
   contents: read
 
+env:
+  DATABASE_URL: ${{ vars.DATABASE_URL }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
