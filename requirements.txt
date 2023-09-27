@@ -1,8 +1,10 @@
 alembic
 fastapi
-pydantic
+httpx
 pydantic-settings
 pysqlite3
+pytest
 python-dotenv
+ruff
 sqlalchemy
 uvicorn[standard]
