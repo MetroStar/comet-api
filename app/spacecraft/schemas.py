@@ -1,14 +1,12 @@
-from pydantic import BaseModel
-from typing import Optional
+from pydantic import BaseModel, ConfigDict
+
 
 # Pydantic Model
 class Spacecraft(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     id: int
     name: str
-    description: Optional[str] = None
-    affiliation: Optional[str] = None
-    dimensions: Optional[str] = None
+    description: str | None = None
+    affiliation: str | None = None
+    dimensions: str | None = None
     appearances: int
-
-    class Config:
-        from_attributes = True
