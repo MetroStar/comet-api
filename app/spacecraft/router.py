@@ -21,21 +21,21 @@ db_session = Annotated[Session, Depends(get_db)]
 @router.get(
     "/spacecraft", status_code=status.HTTP_200_OK, response_model=list[Spacecraft]
 )
-def get_all_spacecraft(db: db_session):
+async def get_all_spacecraft(db: db_session):
     return service.get_items(db)
 
 
 @router.get(
     "/spacecraft/{id}", status_code=status.HTTP_200_OK, response_model=Spacecraft
 )
-def get_spacecraft(id: int, db: db_session):
+async def get_spacecraft(id: int, db: db_session):
     return service.get_item(db, id)
 
 
 @router.put(
     "/spacecraft/{id}", status_code=status.HTTP_200_OK, response_model=Spacecraft
 )
-def update_spacecraft(id: int, spacecraft: Spacecraft, db: db_session):
+async def update_spacecraft(id: int, spacecraft: Spacecraft, db: db_session):
     db_spacecraft = service.update_item(db, id, spacecraft)
     return db_spacecraft
 
@@ -43,11 +43,11 @@ def update_spacecraft(id: int, spacecraft: Spacecraft, db: db_session):
 @router.post(
     "/spacecraft/", status_code=status.HTTP_201_CREATED, response_model=Spacecraft
 )
-def create_spacecraft(spacecraft: Spacecraft, db: db_session):
+async def create_spacecraft(spacecraft: Spacecraft, db: db_session):
     db_spacecraft = service.create_item(db, spacecraft)
     return db_spacecraft
 
 
 @router.delete("/spacecraft/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_spacecraft(id: int, db: db_session):
+async def delete_spacecraft(id: int, db: db_session):
     service.delete_item(db, id)
