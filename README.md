@@ -4,10 +4,10 @@ The goal of this project is to provide a Python-based starter API, which comes p
 
 - Platform: Python
 - Web Framework: Fast API
-- Database: SQLite
-- ORM: SQLAlchemy, Alembic
+- Database: SQLite, Alembic
+- ORM: SQLAlchemy
 - Data Validation: Pydantic
-- Unit Testing: PyTest and unittest (coming soon)
+- Unit Testing: PyTest
 - Code Quality: Ruff, PyLint, Black, isort
 - Authentication support: JWT (coming soon)
 - Documentation: Swagger and ReDoc
