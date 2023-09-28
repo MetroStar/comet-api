@@ -21,8 +21,8 @@ db_session = Annotated[Session, Depends(get_db)]
 @router.get(
     "/spacecraft", status_code=status.HTTP_200_OK, response_model=list[Spacecraft]
 )
-async def get_all_spacecraft(db: db_session):
-    return service.get_items(db)
+async def get_items(db: db_session, page_number: int = 0, page_size: int = 100):
+    return service.get_items(db, page_number, page_size)
 
 
 @router.get(
@@ -41,7 +41,7 @@ async def update_spacecraft(id: int, spacecraft: Spacecraft, db: db_session):
 
 
 @router.post(
-    "/spacecraft/", status_code=status.HTTP_201_CREATED, response_model=Spacecraft
+    "/spacecraft", status_code=status.HTTP_201_CREATED, response_model=Spacecraft
 )
 async def create_spacecraft(spacecraft: Spacecraft, db: db_session):
     db_spacecraft = service.create_item(db, spacecraft)

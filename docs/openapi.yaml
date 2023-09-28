@@ -3,12 +3,12 @@ info:
   title: FastAPI
   version: 0.1.0
 servers:
-- url: /
+  - url: /
 paths:
   /api/health:
     get:
       tags:
-      - Health
+        - Health
       summary: Get Health
       operationId: get_health_api_health_get
       responses:
@@ -20,41 +20,35 @@ paths:
   /api/spacecraft:
     get:
       tags:
-      - Spacecraft
-      summary: Get All Spacecraft
-      operationId: get_all_spacecraft_api_spacecraft_get
-      responses:
-        "200":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                title: Response Get All Spacecraft Api Spacecraft Get
-                items:
-                  $ref: '#/components/schemas/Spacecraft'
-        "404":
-          description: Endpoint not found
-  /api/spacecraft/{id}:
-    get:
-      tags:
-      - Spacecraft
-      summary: Get Spacecraft
-      operationId: get_spacecraft_api_spacecraft__id__get
+        - Spacecraft
+      summary: Get Items
+      operationId: get_items_api_spacecraft_get
       parameters:
-      - name: id
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          title: Id
+        - name: page_number
+          in: query
+          required: false
+          style: form
+          explode: true
+          schema:
+            title: Page Number
+            default: 0
+        - name: page_size
+          in: query
+          required: false
+          style: form
+          explode: true
+          schema:
+            title: Page Size
+            default: 100
       responses:
         "200":
           description: Successful Response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Spacecraft'
+                title: Response Get Items Api Spacecraft Get
+                items:
+                  $ref: "#/components/schemas/Spacecraft"
         "404":
           description: Endpoint not found
         "422":
@@ -62,33 +56,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-    put:
+                $ref: "#/components/schemas/HTTPValidationError"
+    post:
       tags:
-      - Spacecraft
-      summary: Update Spacecraft
-      operationId: update_spacecraft_api_spacecraft__id__put
-      parameters:
-      - name: id
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          title: Id
+        - Spacecraft
+      summary: Create Spacecraft
+      operationId: create_spacecraft_api_spacecraft_post
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Spacecraft'
+              $ref: "#/components/schemas/Spacecraft"
         required: true
       responses:
-        "200":
+        "201":
           description: Successful Response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Spacecraft'
+                $ref: "#/components/schemas/Spacecraft"
         "404":
           description: Endpoint not found
         "422":
@@ -96,20 +82,83 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HTTPValidationError'
+                $ref: "#/components/schemas/HTTPValidationError"
+  /api/spacecraft/{id}:
+    get:
+      tags:
+        - Spacecraft
+      summary: Get Spacecraft
+      operationId: get_spacecraft_api_spacecraft__id__get
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            title: Id
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Spacecraft"
+        "404":
+          description: Endpoint not found
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+    put:
+      tags:
+        - Spacecraft
+      summary: Update Spacecraft
+      operationId: update_spacecraft_api_spacecraft__id__put
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            title: Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Spacecraft"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Spacecraft"
+        "404":
+          description: Endpoint not found
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
     delete:
       tags:
-      - Spacecraft
+        - Spacecraft
       summary: Delete Spacecraft
       operationId: delete_spacecraft_api_spacecraft__id__delete
       parameters:
-      - name: id
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          title: Id
+        - name: id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            title: Id
       responses:
         "204":
           description: Successful Response
@@ -120,34 +169,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-  /api/spacecraft/:
-    post:
-      tags:
-      - Spacecraft
-      summary: Create Spacecraft
-      operationId: create_spacecraft_api_spacecraft__post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Spacecraft'
-        required: true
-      responses:
-        "201":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Spacecraft'
-        "404":
-          description: Endpoint not found
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
+                $ref: "#/components/schemas/HTTPValidationError"
 components:
   schemas:
     HTTPValidationError:
@@ -156,13 +178,13 @@ components:
         detail:
           title: Detail
           items:
-            $ref: '#/components/schemas/ValidationError'
+            $ref: "#/components/schemas/ValidationError"
     Spacecraft:
       title: Spacecraft
       required:
-      - appearances
-      - id
-      - name
+        - appearances
+        - id
+        - name
       properties:
         id:
           title: Id
@@ -171,33 +193,33 @@ components:
         description:
           title: Description
           anyOf:
-          - {}
-          - {}
+            - {}
+            - {}
         affiliation:
           title: Affiliation
           anyOf:
-          - {}
-          - {}
+            - {}
+            - {}
         dimensions:
           title: Dimensions
           anyOf:
-          - {}
-          - {}
+            - {}
+            - {}
         appearances:
           title: Appearances
     ValidationError:
       title: ValidationError
       required:
-      - loc
-      - msg
-      - type
+        - loc
+        - msg
+        - type
       properties:
         loc:
           title: Location
           items:
             anyOf:
-            - {}
-            - {}
+              - {}
+              - {}
         msg:
           title: Message
         type:

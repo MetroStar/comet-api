@@ -8,15 +8,22 @@ base_spacecraft = {
 }
 
 
-def test_get_all_spacecraft(client):
-    response = client.get("/api/spacecraft")
-    assert response.status_code == 200
-
-
 def test_create_spacecraft(client):
     response = client.post("/api/spacecraft/", json=base_spacecraft)
     assert response.status_code == 201
     assert response.json() == base_spacecraft
+
+
+def test_get_all_spacecraft(client):
+    response = client.get("/api/spacecraft")
+    assert response.status_code == 200
+    assert len(response.json()) > 0
+
+
+def test_get_spacecraft_paged(client):
+    response = client.get("/api/spacecraft?page_number=0&page_size=10")
+    assert response.status_code == 200
+    assert len(response.json()) > 0
 
 
 def test_get_spacecraft(client):

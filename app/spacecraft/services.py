@@ -5,8 +5,8 @@ from app.spacecraft.models import DBSpacecraft
 from app.spacecraft.schemas import Spacecraft
 
 
-def get_items(db: Session):
-    return db.query(DBSpacecraft).all()
+def get_items(db: Session, page_number: int, page_size: int):
+    return db.query(DBSpacecraft).limit(page_size).offset(page_number * page_size).all()
 
 
 def get_item(db: Session, spacecraft_id: int):
