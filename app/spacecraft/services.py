@@ -3,10 +3,22 @@ from sqlalchemy.orm import Session
 
 from app.spacecraft.models import DBSpacecraft
 from app.spacecraft.schemas import Spacecraft
+from app.utils import get_next_page, get_page_count, get_prev_page
 
 
 def get_items(db: Session, page_number: int, page_size: int):
-    return db.query(DBSpacecraft).limit(page_size).offset(page_number * page_size).all()
+    item_count = db.query(DBSpacecraft).count()
+    items = (
+        db.query(DBSpacecraft).limit(page_size).offset(page_number * page_size).all()
+    )
+
+    return {
+        "items": items,
+        "item_count": item_count,
+        "page_count": get_page_count(item_count, page_size),
+        "prev_page": get_prev_page(page_number),
+        "next_page": get_next_page(item_count, page_number, page_size),
+    }
 
 
 def get_item(db: Session, spacecraft_id: int):

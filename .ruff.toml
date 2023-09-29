@@ -16,7 +16,7 @@ exclude = [
     "venv",
     "docs",
     "__pycache",
-    "**/alembic/*",
+    "**/migrations/*",
 ]
 
 # Same as Black.

@@ -6,7 +6,7 @@ from starlette import status
 
 import app.spacecraft.services as service
 from app.db import get_db
-from app.spacecraft.schemas import Spacecraft
+from app.spacecraft.schemas import Spacecraft, SpacecraftPayload
 
 router = APIRouter(
     prefix="/api",
@@ -19,7 +19,7 @@ db_session = Annotated[Session, Depends(get_db)]
 
 
 @router.get(
-    "/spacecraft", status_code=status.HTTP_200_OK, response_model=list[Spacecraft]
+    "/spacecraft", status_code=status.HTTP_200_OK, response_model=SpacecraftPayload
 )
 async def get_items(db: db_session, page_number: int = 0, page_size: int = 100):
     return service.get_items(db, page_number, page_size)
