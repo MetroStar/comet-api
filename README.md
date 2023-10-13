@@ -38,6 +38,7 @@ pip install -r requirements.txt
 
 ```
 DATABASE_URL=[SOME_URL] # Ex: 'sqlite:///./db.sqlite3'
+OIDC_CONFIG_URL=[SOME_URL] # Ex: 'https://token.actions.githubusercontent.com/.well-known/openid-configuration'
 ```
 
 4. To start the app, run the following:
