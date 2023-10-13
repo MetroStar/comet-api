@@ -9,7 +9,7 @@ The goal of this project is to provide a Python-based starter API, which comes p
 - Data Validation: Pydantic
 - Unit Testing: PyTest
 - Code Quality: Ruff, PyLint, Black, isort
-- Authentication support: JWT (coming soon)
+- Authentication support: JWT
 - Documentation: Swagger and ReDoc
 
 ## Table of Contents
