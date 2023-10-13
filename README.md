@@ -9,7 +9,7 @@ The goal of this project is to provide a Python-based starter API, which comes p
 - Data Validation: Pydantic
 - Unit Testing: PyTest
 - Code Quality: Ruff, PyLint, Black, isort
-- Authentication support: JWT (coming soon)
+- Authentication support: JWT
 - Documentation: Swagger and ReDoc
 
 ## Table of Contents
@@ -38,6 +38,7 @@ pip install -r requirements.txt
 
 ```
 DATABASE_URL=[SOME_URL] # Ex: 'sqlite:///./db.sqlite3'
+OIDC_CONFIG_URL=[SOME_URL] # Ex: 'https://token.actions.githubusercontent.com/.well-known/openid-configuration'
 ```
 
 4. To start the app, run the following:
