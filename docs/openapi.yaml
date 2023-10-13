@@ -168,6 +168,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /api/current-user:
+    get:
+      tags:
+      - Admin
+      summary: Get Current User
+      operationId: get_current_user_api_current_user_get
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
 components:
   schemas:
     HTTPValidationError:
@@ -247,3 +261,7 @@ components:
           title: Message
         type:
           title: Error Type
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
