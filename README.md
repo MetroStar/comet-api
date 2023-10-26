@@ -70,7 +70,7 @@ coverage run -m pytest && coverage html
 ruff check .
 ```
 
-## Running Code Formatting
+## Running Code Formatting Checks
 
 1. To run code formatting, run the following:
 
