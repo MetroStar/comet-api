@@ -17,7 +17,8 @@ The goal of this project is to provide a Python-based starter API, which comes p
 1. [Running the Project Locally](#running-the-project-locally)
 2. [Running Unit Tests](#running-unit-tests)
 3. [Running Code Quality Checks](#running-code-quality-checks)
-4. [Contributing](#contributing)
+4. [Running Code Formatting](#running-code-formatting)
+5. [Contributing](#contributing)
 
 ## Running the Project Locally
 
@@ -67,6 +68,14 @@ coverage run -m pytest && coverage html
 
 ```sh
 ruff check .
+```
+
+## Running Code Formatting
+
+1. To run code quality checks, run the following:
+
+```sh
+ruff format .
 ```
 
 ## Contributing
