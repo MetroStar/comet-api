@@ -72,7 +72,7 @@ ruff check .
 
 ## Running Code Formatting
 
-1. To run code quality checks, run the following:
+1. To run code formatting, run the following:
 
 ```sh
 ruff format .
