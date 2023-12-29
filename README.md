@@ -48,6 +48,8 @@ OIDC_CONFIG_URL=[SOME_URL] # Ex: 'https://token.actions.githubusercontent.com/.w
 uvicorn app.main:app --reload --host=0.0.0.0 --port=5000
 ```
 
+5. Access the swagger docs by navigating to: `http://0.0.0.0:5000/docs`
+
 ## Running Unit Tests
 
 1. To run unit tests, run the following:
