@@ -18,8 +18,9 @@ The goal of this project is to provide a Python-based starter API, which comes p
 2. [Running Unit Tests](#running-unit-tests)
 3. [Running Code Quality Checks](#running-code-quality-checks)
 4. [Running Code Formatting](#running-code-formatting)
-5. [Published Updated Docs](#publishing-updated-docs)
+5. [Publishing Updated Docs](#publishing-updated-docs)
 6. [Contributing](#contributing)
+7. [Next Steps](#next-steps)
 
 ## Running the Project Locally
 
@@ -116,3 +117,14 @@ mv redoc-static.html docs/index.html
 3. Commit your Changes (`git commit -m 'Added new feature_a'`)
 4. Push to the Branch (`git push origin feature_a`)
 5. Open a Pull Request
+
+## Next Steps
+
+The following provides a short list of tasks which are potential next steps for this project. These could be steps in making use of this baseline or they could be for learning purposes.
+
+- [ ] Add/Update existing endpoints with more applicable entities and/or columns
+- [ ] Update applicable endpoints to require JWT
+- [ ] Add Admin endpoints to support password reset
+- [ ] Replace default database with external database (Ex. Postgres)
+- [ ] Deploy to cloud infrastructure
+- [ ] Automate doc publishing process
