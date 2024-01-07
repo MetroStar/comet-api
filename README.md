@@ -107,7 +107,7 @@ npx redoc-cli bundle docs/openapi.yaml
 mv redoc-static.html docs/index.html
 ```
 
-9. Commit the spec and html files merge into `main` to publish docs
+9. Commit the spec and html files and merge into `main` to publish docs
 
 ## Contributing
 
