@@ -18,7 +18,8 @@ The goal of this project is to provide a Python-based starter API, which comes p
 2. [Running Unit Tests](#running-unit-tests)
 3. [Running Code Quality Checks](#running-code-quality-checks)
 4. [Running Code Formatting](#running-code-formatting)
-5. [Contributing](#contributing)
+5. [Published Updated Docs](#publishing-updated-docs)
+6. [Contributing](#contributing)
 
 ## Running the Project Locally
 
@@ -79,6 +80,34 @@ ruff check .
 ```sh
 ruff format .
 ```
+
+## Publishing Updated Docs
+
+1. Access the swagger ReDocs by navigating to: `http://0.0.0.0:5000/redoc`
+
+2. Download the OpenAPI spec, click the Download button
+
+3. Navigate to `https://editor.swagger.io/#/`
+
+4. Upload the spec, click File >> Import File and select the spec file previously downloaded
+
+5. Download the converted spec, click Generate Client >> openapi-yaml
+
+6. Copy the downloaded file into the `comet-api/docs` directory
+
+7. Convert the yaml into html run the following:
+
+```sh
+npx redoc-cli bundle docs/openapi.yaml
+```
+
+8. Copy the generated html to the docs directory, run the following:
+
+```sh
+mv redoc-static.html docs/index.html
+```
+
+9. Commit the spec and html files and merge into `main` to publish docs
 
 ## Contributing
 
