@@ -4,12 +4,12 @@ from pydantic import BaseModel, ConfigDict
 # Pydantic Models
 class Spacecraft(BaseModel):
     model_config = ConfigDict(from_attributes=True)
-    id: int
+    id: int | None = None
     name: str
     description: str | None = None
     affiliation: str | None = None
     dimensions: str | None = None
-    appearances: int
+    appearances: int = 1
 
 
 class SpacecraftPayload(BaseModel):
