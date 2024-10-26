@@ -34,7 +34,7 @@ source venv/bin/activate
 2. To install dependencies, run the following:
 
 ```sh
-pip install -r requirements.txt
+pip install .
 ```
 
 3. To prepare your environment, add a file called `.env` to the `comet-api` directory. Copy and paste the template below and replace the placeholder values with your own:

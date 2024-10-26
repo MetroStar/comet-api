@@ -1,10 +1,34 @@
+[project]
+name = "comet-api"
+version = "1.0.0"
+description = "Python Fast API for the Comet Starter App"
+readme = "README.md"
+license = {file = "LICENSE.md"}
+dependencies = [
+  "alembic",
+  "coverage",
+  "fastapi",
+  "httpx",
+  "pydantic-settings",
+  "pysqlite3",
+  "pytest",
+  "python-dotenv",
+  "python-jose[cryptography]",
+  "requests",
+  "ruff",
+  "sqlalchemy",
+  "uvicorn[standard]",
+]
+
+[tool.setuptools.packages.find]
+where = ["app"]  # ["."] by default
+
 [tool.ruff]
 select = ["B", "C4", "EXE", "F", "E", "ISC", "ICN", "INP", "PIE", "SIM", "W", "T20", "UP", "T10", "G", "C90", "ERA"]
 ignore = ["B008", "SIM102"]
 fixable = ["F", "E", "B", "C4", "EXE", "ISC", "ICN", "INP", "PIE", "SIM", "W", "T20", "UP"]
 unfixable = []
 
-# Exclude a variety of commonly ignored directories.
 exclude = [
     ".git",
     ".mypy_cache",
@@ -18,23 +42,12 @@ exclude = [
     "**/migrations/*",
 ]
 
-# Same as Black.
 line-length = 88
-
-# Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
-# Assume Python 3.11.
 target-version = "py311"
 
 [tool.ruff.format]
-# Like Black, use double quotes for strings.
 quote-style = "double"
-
-# Like Black, indent with spaces, rather than tabs.
 indent-style = "space"
-
-# Like Black, respect magic trailing commas.
 skip-magic-trailing-comma = false
-
-# Like Black, automatically detect the appropriate line ending.
 line-ending = "auto"
