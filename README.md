@@ -37,7 +37,7 @@ source venv/bin/activate
 pip install .
 ```
 
-3. To install optional dev dependencies, run the following:
+3. To install dev dependencies, run the following (optional):
 
 ```sh
 pip install -e ".[dev]"
