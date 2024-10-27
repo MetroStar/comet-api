@@ -31,26 +31,32 @@ virtualenv -p python3 venv
 source venv/bin/activate
 ```
 
-2. To install dependencies, run the following:
+2. To install project dependencies, run the following:
 
 ```sh
 pip install .
 ```
 
-3. To prepare your environment, add a file called `.env` to the `comet-api` directory. Copy and paste the template below and replace the placeholder values with your own:
+3. To install optional dev dependencies, run the following:
+
+```sh
+pip install -e ".[dev]"
+```
+
+4. To prepare your environment, add a file called `.env` to the `comet-api` directory. Copy and paste the template below and replace the placeholder values with your own:
 
 ```
 DATABASE_URL=[SOME_URL] # Ex: 'sqlite:///./db.sqlite3'
 OIDC_CONFIG_URL=[SOME_URL] # Ex: 'https://token.actions.githubusercontent.com/.well-known/openid-configuration'
 ```
 
-4. To start the app, run the following:
+5. To start the app, run the following:
 
 ```sh
 uvicorn app.main:app --reload --host=0.0.0.0 --port=5000
 ```
 
-5. Access the swagger docs by navigating to: `http://0.0.0.0:5000/docs`
+6. Access the swagger docs by navigating to: `http://0.0.0.0:5000/docs`
 
 ## Running Unit Tests
 

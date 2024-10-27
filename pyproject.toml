@@ -6,22 +6,22 @@ readme = "README.md"
 license = {file = "LICENSE.md"}
 dependencies = [
   "alembic",
-  "coverage",
   "fastapi",
   "httpx",
   "pydantic-settings",
   "pysqlite3",
-  "pytest",
   "python-dotenv",
   "python-jose[cryptography]",
   "requests",
-  "ruff",
   "sqlalchemy",
   "uvicorn[standard]",
 ]
 
-[tool.setuptools.packages.find]
-where = ["app"]  # ["."] by default
+[project.optional-dependencies]
+dev = ["coverage", "pytest", "ruff"]
+
+[tool.setuptools]
+packages = ["app"]
 
 [tool.ruff]
 select = ["B", "C4", "EXE", "F", "E", "ISC", "ICN", "INP", "PIE", "SIM", "W", "T20", "UP", "T10", "G", "C90", "ERA"]
