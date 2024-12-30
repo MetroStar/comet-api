@@ -15,12 +15,13 @@ The goal of this project is to provide a Python-based starter API, which comes p
 ## Table of Contents
 
 1. [Running the Project Locally](#running-the-project-locally)
-2. [Running Unit Tests](#running-unit-tests)
-3. [Running Code Quality Checks](#running-code-quality-checks)
-4. [Running Code Formatting](#running-code-formatting)
-5. [Publishing Updated Docs](#publishing-updated-docs)
-6. [Contributing](#contributing)
-7. [Next Steps](#next-steps)
+2. [Running with Docker](#running-with-docker)
+3. [Running Unit Tests](#running-unit-tests)
+4. [Running Code Quality Checks](#running-code-quality-checks)
+5. [Running Code Formatting](#running-code-formatting)
+6. [Publishing Updated Docs](#publishing-updated-docs)
+7. [Contributing](#contributing)
+8. [Next Steps](#next-steps)
 
 ## Running the Project Locally
 
@@ -57,6 +58,22 @@ uvicorn app.main:app --reload --host=0.0.0.0 --port=5000
 ```
 
 6. Access the swagger docs by navigating to: `http://0.0.0.0:5000/docs`
+
+## Running with Docker
+
+1. To build the image, run the following:
+
+```sh
+docker build . -t comet-api
+```
+
+2. To run the container, run the following:
+
+```sh
+docker run -p 5000:5000 --name comet-api comet-api
+```
+
+3. Access the swagger docs by navigating to: `http://0.0.0.0:5000/docs`
 
 ## Running Unit Tests
 

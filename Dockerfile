@@ -2,9 +2,9 @@ FROM python:3.10
 
 WORKDIR /code
 
-COPY ./requirements.txt /code/requirements.txt
+COPY . .
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+RUN pip install .
 
 COPY ./app /code/app
 COPY ./.env /code/.env
