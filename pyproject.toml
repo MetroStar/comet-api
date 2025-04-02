@@ -9,7 +9,6 @@ dependencies = [
   "fastapi",
   "httpx",
   "pydantic-settings",
-  "pysqlite3",
   "python-dotenv",
   "python-jose[cryptography]",
   "requests",
