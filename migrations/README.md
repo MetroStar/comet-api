@@ -13,10 +13,10 @@ alembic revision -m "SOME MESSAGE"
 ```py
 # Add column example
 def upgrade() -> None:
-  op.add_column('spacecraft', sa.Column('speed', sa.Integer(), nullable=True)
+  op.add_column('cases', sa.Column('priority', sa.Integer(), nullable=True)
 
 def downgrade() -> None:
-  op.drop_column('spacecraft', 'speed')
+  op.drop_column('cases', 'priority')
 
 ```
 
