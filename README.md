@@ -113,7 +113,7 @@ ruff format .
 
 3. Copy the downloaded file into the `comet-api/docs` directory
 
-4. To convert the yaml into html, run the following:
+4. To convert the json into html, run the following:
 
 ```sh
 npx redoc-cli build docs/openapi.json --output docs/index.html
