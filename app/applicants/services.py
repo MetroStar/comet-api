@@ -4,7 +4,7 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from app.applicants.models import DBApplicant
-from app.applicants.schemas import Applicant
+from app.applicants.schemas import ApplicantBase
 from app.utils import get_next_page, get_page_count, get_prev_page
 
 
@@ -25,7 +25,7 @@ def get_item(db: Session, applicant_id: int):
     return db.query(DBApplicant).where(DBApplicant.id == applicant_id).first()
 
 
-def update_item(db: Session, id: int, applicant: Applicant):
+def update_item(db: Session, id: int, applicant: ApplicantBase):
     db_applicant = db.query(DBApplicant).filter(DBApplicant.id == id).first()
     if db_applicant is None:
         raise HTTPException(status_code=404, detail="Applicant not founds")
@@ -53,8 +53,10 @@ def update_item(db: Session, id: int, applicant: Applicant):
     return db_applicant
 
 
-def create_item(db: Session, applicant: Applicant):
+def create_item(db: Session, applicant: ApplicantBase):
     db_applicant = DBApplicant(**applicant.model_dump())
+    db_applicant.created_at = datetime.now()
+    db_applicant.updated_at = datetime.now()
     db.add(db_applicant)
     db.commit()
     db.refresh(db_applicant)

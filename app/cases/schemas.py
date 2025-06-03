@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
 
@@ -6,22 +7,20 @@ from app.applicants.schemas import Applicant
 
 
 # Pydantic Models
-class Case(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-    id: int | None = None
-    status: str
+class CaseBase(BaseModel):
+    status: Literal["Not Started", "In Progress", "Approved", "Denied"]
     assigned_to: str | None = None
-    created_at: datetime
-    updated_at: datetime
     applicant_id: int | None = None
 
 
-class CaseWithApplicant(BaseModel):
-    id: int
-    status: str
-    assigned_to: str | None = None
+class Case(CaseBase):
+    model_config = ConfigDict(from_attributes=True)
+    id: int | None = None
     created_at: datetime
     updated_at: datetime
+
+
+class CaseWithApplicant(Case):
     applicant: Applicant | None = None
 
 

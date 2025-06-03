@@ -1,5 +1,6 @@
+from tests.conftest import generalize_json_data
+
 base_applicant = {
-    "id": 0,
     "first_name": "John",
     "last_name": "Doe",
     "middle_name": "A",
@@ -14,15 +15,14 @@ base_applicant = {
     "state": "CA",
     "zip": "12345",
     "country": "USA",
-    "created_at": "2023-10-01T00:00:00",
-    "updated_at": "2023-10-01T00:00:00",
 }
 
 
 def test_create_applicant(client):
     response = client.post("/api/applicants/", json=base_applicant)
+    response_json = generalize_json_data(response.json())
     assert response.status_code == 201
-    assert response.json() == base_applicant
+    assert response_json == base_applicant
 
 
 def test_get_all_applicants(client):
@@ -38,18 +38,18 @@ def test_get_applicants_paged(client):
 
 
 def test_get_applicant(client):
-    response = client.get("/api/applicants/0")
+    response = client.get("/api/applicants/1")
+    response_json = generalize_json_data(response.json())
     assert response.status_code == 200
-    assert response.json() == base_applicant
+    assert response_json == base_applicant
 
 
 def test_update_applicant(client):
     updated_applicant = base_applicant.copy()
     updated_applicant["middle_name"] = "test"
 
-    response = client.put("/api/applicants/0", json=updated_applicant)
-    response_json = response.json()
-    response_json["updated_at"] = updated_applicant["updated_at"]
+    response = client.put("/api/applicants/1", json=updated_applicant)
+    response_json = generalize_json_data(response.json())
     assert response.status_code == 200
     assert response_json == updated_applicant
 
@@ -60,7 +60,7 @@ def test_update_applicant_invalid_id(client):
 
 
 def test_delete_applicant(client):
-    response = client.delete("/api/applicants/0")
+    response = client.delete("/api/applicants/1")
     assert response.status_code == 204
 
 
