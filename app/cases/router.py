@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from starlette import status
 
 import app.cases.services as service
-from app.cases.schemas import Case, CasePayload, CaseWithApplicant
+from app.cases.schemas import Case, CaseBase, CasePayload, CaseWithApplicant
 from app.db import get_db
 
 router = APIRouter(
@@ -31,13 +31,13 @@ async def get_case(id: int, db: db_session):
 
 
 @router.put("/cases/{id}", status_code=status.HTTP_200_OK, response_model=Case)
-async def update_case(id: int, case: Case, db: db_session):
+async def update_case(id: int, case: CaseBase, db: db_session):
     db_case = service.update_item(db, id, case)
     return db_case
 
 
 @router.post("/cases", status_code=status.HTTP_201_CREATED, response_model=Case)
-async def create_case(case: Case, db: db_session):
+async def create_case(case: CaseBase, db: db_session):
     db_case = service.create_item(db, case)
     return db_case
 

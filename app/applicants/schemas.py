@@ -4,9 +4,7 @@ from pydantic import BaseModel, ConfigDict
 
 
 # Pydantic Models
-class Applicant(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-    id: int | None = None
+class ApplicantBase(BaseModel):
     first_name: str
     last_name: str
     middle_name: str | None = None
@@ -21,6 +19,11 @@ class Applicant(BaseModel):
     state: str | None = None
     zip: str | None = None
     country: str = "USA"
+
+
+class Applicant(ApplicantBase):
+    model_config = ConfigDict(from_attributes=True)
+    id: int | None = None
     created_at: datetime
     updated_at: datetime
 

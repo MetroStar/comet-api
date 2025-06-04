@@ -4,7 +4,7 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session, joinedload
 
 from app.cases.models import DBCase
-from app.cases.schemas import Case
+from app.cases.schemas import CaseBase
 from app.utils import get_next_page, get_page_count, get_prev_page
 
 
@@ -65,7 +65,7 @@ def get_item(db: Session, case_id: int):
     }
 
 
-def update_item(db: Session, id: int, case: Case):
+def update_item(db: Session, id: int, case: CaseBase):
     db_case = db.query(DBCase).filter(DBCase.id == id).first()
     if db_case is None:
         raise HTTPException(status_code=404, detail="Case not founds")
@@ -80,8 +80,10 @@ def update_item(db: Session, id: int, case: Case):
     return db_case
 
 
-def create_item(db: Session, case: Case):
+def create_item(db: Session, case: CaseBase):
     db_case = DBCase(**case.model_dump())
+    db_case.created_at = datetime.now()
+    db_case.updated_at = datetime.now()
     db.add(db_case)
     db.commit()
     db.refresh(db_case)
