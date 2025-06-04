@@ -153,5 +153,6 @@ dmypy.json
 cython_debug/
 
 # Misc
-db.sqlite3:
+db.sqlite3
+db.test.sqlite3
 .DS_STORE
