@@ -12,6 +12,8 @@ on:
 jobs:
   update-docs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     services:
       # Start your API service (adjust based on your setup)
