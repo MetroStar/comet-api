@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from fastapi.responses import StreamingResponse
 from starlette import status
 import asyncio
@@ -37,3 +37,22 @@ async def get_health_stream():
             "Content-Type": "text/event-stream",
         }
     )
+
+
+@router.websocket("/health/ws")
+async def websocket_health(websocket: WebSocket):
+    """WebSocket endpoint for real-time server health updates"""
+    await websocket.accept()
+    try:
+        while True:
+            # Send health status with current datetime
+            health_data = {
+                "health": "healthy",
+                "datetime": datetime.now().isoformat(),
+                "timestamp": datetime.now().timestamp(),
+                "message": "Server health check via WebSocket"
+            }
+            await websocket.send_json(health_data)
+            await asyncio.sleep(2)  # Send update every 2 seconds
+    except WebSocketDisconnect:
+        pass  # Client disconnected, exit gracefully
