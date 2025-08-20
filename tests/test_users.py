@@ -2,7 +2,7 @@ import pytest
 
 base_date = "2021-01-01T00:00:00.000000"
 base_user = {
-    "id": 0,
+    "id": 1,
     "user_id": "testuser",
     "first_name": "Test",
     "last_name": "User",
@@ -17,12 +17,12 @@ base_user = {
 
 
 async def seed_data(client):
-    client.post("/api/users/", json=base_user)
+    client.post("/users/", json=base_user)
 
 
 @pytest.mark.asyncio
 async def test_create_user(client):
-    response = client.post("/api/users/", json=base_user)
+    response = client.post("/users/", json=base_user)
     response_json = response.json()
     response_json["created"] = base_date
     response_json["modified"] = base_date
@@ -34,7 +34,7 @@ async def test_create_user(client):
 @pytest.mark.asyncio
 async def test_get_all_users(client):
     await seed_data(client)
-    response = client.get("/api/users")
+    response = client.get("/users")
     assert response.status_code == 200
     assert len(response.json()) > 0
 
@@ -42,7 +42,7 @@ async def test_get_all_users(client):
 @pytest.mark.asyncio
 async def test_get_users_paged(client):
     await seed_data(client)
-    response = client.get("/api/users?page_number=0&page_size=10")
+    response = client.get("/users?page_number=0&page_size=10")
     assert response.status_code == 200
     assert len(response.json()) > 0
 
@@ -50,7 +50,7 @@ async def test_get_users_paged(client):
 @pytest.mark.asyncio
 async def test_get_user(client):
     await seed_data(client)
-    response = client.get("/api/users/0")
+    response = client.get("/users/1")
     response_json = response.json()
     response_json["created"] = base_date
     response_json["modified"] = base_date
@@ -65,7 +65,7 @@ async def test_update_user(client):
     updated_user = base_user.copy()
     updated_user["is_active"] = False
 
-    response = client.put("/api/users/0", json=updated_user)
+    response = client.put("/users/1", json=updated_user)
     response_json = response.json()
     response_json["created"] = base_date
     response_json["modified"] = base_date
@@ -77,19 +77,19 @@ async def test_update_user(client):
 @pytest.mark.asyncio
 async def test_update_user_invalid_id(client):
     await seed_data(client)
-    response = client.put("/api/users/-1", json=base_user)
+    response = client.put("/users/-1", json=base_user)
     assert response.status_code == 404
 
 
 @pytest.mark.asyncio
 async def test_delete_user(client):
     await seed_data(client)
-    response = client.delete("/api/users/0")
+    response = client.delete("/users/1")
     assert response.status_code == 204
 
 
 @pytest.mark.asyncio
 async def test_delete_user_invalid_id(client):
     await seed_data(client)
-    response = client.delete("/api/users/-1")
+    response = client.delete("/users/-1")
     assert response.status_code == 404

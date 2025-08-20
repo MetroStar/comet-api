@@ -1,10 +1,8 @@
-from datetime import datetime
-
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from app.users.models import DBUser
-from app.users.schemas import User
+from app.users.schemas import UserCreate, UserUpdate
 from app.utils import get_next_page, get_page_count, get_prev_page
 
 
@@ -21,22 +19,10 @@ def get_items(db: Session, page_number: int, page_size: int):
     }
 
 
-def get_item(db: Session, item_id: int):
-    return db.query(DBUser).where(DBUser.id == item_id).first()
-
-
-def update_item(db: Session, id: int, item: User):
-    db_item = db.query(DBUser).filter(DBUser.id == id).first()
-    if db_item is None:
-        raise HTTPException(status_code=404, detail="Item not found")
-
-    db_item.first_name = item.first_name
-    db_item.last_name = item.last_name
-    db_item.display_name = item.display_name
-    db_item.email = item.email
-    db_item.is_active = item.is_active
-    db_item.modified = datetime.now()
-    db_item.modified_by = item.modified_by
+def create_item(db: Session, item: UserCreate):
+    db_item = DBUser(**item.model_dump(exclude={"hashed_password"}))
+    if item.hashed_password:
+        db_item.hashed_password = item.hashed_password
     db.add(db_item)
     db.commit()
     db.refresh(db_item)
@@ -44,10 +30,21 @@ def update_item(db: Session, id: int, item: User):
     return db_item
 
 
-def create_item(db: Session, item: User):
-    db_item = DBUser(**item.model_dump())
-    db_item.created = datetime.now()
-    db_item.modified = datetime.now()
+def get_item(db: Session, item_id: int):
+    return db.query(DBUser).where(DBUser.id == item_id).first()
+
+
+def update_item(db: Session, id: int, item: UserUpdate):
+    db_item = db.query(DBUser).filter(DBUser.id == id).first()
+    if db_item is None:
+        raise HTTPException(status_code=404, detail="Item not found")
+
+    # Only update fields that are provided (not None)
+    update_data = item.model_dump(exclude_unset=True)
+    for field, value in update_data.items():
+        if value is not None:
+            setattr(db_item, field, value)
+
     db.add(db_item)
     db.commit()
     db.refresh(db_item)
@@ -62,3 +59,5 @@ def delete_item(db: Session, id: int):
 
     db.query(DBUser).filter(DBUser.id == id).delete()
     db.commit()
+
+    return None
