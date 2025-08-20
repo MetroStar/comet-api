@@ -11,10 +11,11 @@ from app.applicants.schemas import (
     ApplicantResponse,
     ApplicantUpdate,
 )
+from app.config import settings
 from app.db import get_db
 
 router = APIRouter(
-    prefix="/applicants",
+    prefix=f"{settings.API_PREFIX}/applicants",
     tags=["Applicants"],
     responses={404: {"description": "Endpoint not found"}},
 )

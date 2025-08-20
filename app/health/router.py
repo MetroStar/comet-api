@@ -1,8 +1,10 @@
 from fastapi import APIRouter
 from starlette import status
 
+from app.config import settings
+
 router = APIRouter(
-    prefix="/health",
+    prefix=f"{settings.API_PREFIX}/health",
     tags=["Health"],
 )
 

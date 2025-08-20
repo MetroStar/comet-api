@@ -5,11 +5,12 @@ from sqlalchemy.orm import Session
 from starlette import status
 
 import app.users.services as service
+from app.config import settings
 from app.db import get_db
 from app.users.schemas import UserCreate, UserListResponse, UserResponse, UserUpdate
 
 router = APIRouter(
-    prefix="/users",
+    prefix=f"{settings.API_PREFIX}/users",
     tags=["Users"],
     responses={404: {"description": "Endpoint not found"}},
 )
