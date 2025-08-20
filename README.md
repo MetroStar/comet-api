@@ -44,10 +44,10 @@ pip install .
 pip install -e ".[dev]"
 ```
 
-4. To prepare your environment, add a file called `.env` to the `comet-api` directory. Copy and paste the template below and replace the placeholder values with your own:
+4. To override default environment variables, add a file called `.env` to the `comet-api` directory and update as needed (optional):
 
 ```
-DATABASE_URL=[SOME_URL] # Ex: 'sqlite:///./db.sqlite3'
+DATABASE_URL=[SOME_URL] # Ex: 'postgresql://username:password@localhost:5432/database_name'
 OIDC_CONFIG_URL=[SOME_URL] # Ex: 'https://token.actions.githubusercontent.com/.well-known/openid-configuration'
 ```
 
