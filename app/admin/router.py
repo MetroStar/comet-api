@@ -7,7 +7,7 @@ from starlette import status
 from app.auth import validate_jwt
 
 router = APIRouter(
-    prefix="/api",
+    prefix="/admin",
     tags=["Admin"],
 )
 
