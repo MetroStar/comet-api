@@ -21,12 +21,12 @@ base_applicant = {
 
 
 async def seed_data(client):
-    client.post("/api/applicants/", json=base_applicant)
+    client.post("/applicants", json=base_applicant)
 
 
 @pytest.mark.asyncio
 async def test_create_applicant(client):
-    response = client.post("/api/applicants/", json=base_applicant)
+    response = client.post("/applicants", json=base_applicant)
     response_json = generalize_json_data(response.json())
     assert response.status_code == 201
     assert response_json == base_applicant
@@ -35,7 +35,7 @@ async def test_create_applicant(client):
 @pytest.mark.asyncio
 async def test_get_all_applicants(client):
     await seed_data(client)
-    response = client.get("/api/applicants")
+    response = client.get("/applicants")
     assert response.status_code == 200
     assert len(response.json()) > 0
 
@@ -43,7 +43,7 @@ async def test_get_all_applicants(client):
 @pytest.mark.asyncio
 async def test_get_applicants_paged(client):
     await seed_data(client)
-    response = client.get("/api/applicants?page_number=0&page_size=10")
+    response = client.get("/applicants?page_number=0&page_size=10")
     assert response.status_code == 200
     assert len(response.json()) > 0
 
@@ -51,7 +51,7 @@ async def test_get_applicants_paged(client):
 @pytest.mark.asyncio
 async def test_get_applicant(client):
     await seed_data(client)
-    response = client.get("/api/applicants/1")
+    response = client.get("/applicants/1")
     response_json = generalize_json_data(response.json())
     assert response.status_code == 200
     assert response_json == base_applicant
@@ -63,7 +63,7 @@ async def test_update_applicant(client):
     updated_applicant = base_applicant.copy()
     updated_applicant["middle_name"] = "test"
 
-    response = client.put("/api/applicants/1", json=updated_applicant)
+    response = client.put("/applicants/1", json=updated_applicant)
     response_json = generalize_json_data(response.json())
     assert response.status_code == 200
     assert response_json == updated_applicant
@@ -72,19 +72,19 @@ async def test_update_applicant(client):
 @pytest.mark.asyncio
 async def test_update_applicant_invalid_id(client):
     await seed_data(client)
-    response = client.put("/api/applicants/-1", json=base_applicant)
+    response = client.put("/applicants/-1", json=base_applicant)
     assert response.status_code == 404
 
 
 @pytest.mark.asyncio
 async def test_delete_applicant(client):
     await seed_data(client)
-    response = client.delete("/api/applicants/1")
+    response = client.delete("/applicants/1")
     assert response.status_code == 204
 
 
 @pytest.mark.asyncio
 async def test_delete_applicant_invalid_id(client):
     await seed_data(client)
-    response = client.delete("/api/applicants/-1")
+    response = client.delete("/applicants/-1")
     assert response.status_code == 404

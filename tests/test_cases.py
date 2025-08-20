@@ -10,12 +10,12 @@ base_case = {
 
 
 async def seed_data(client):
-    client.post("/api/cases/", json=base_case)
+    client.post("/cases/", json=base_case)
 
 
 @pytest.mark.asyncio
 async def test_create_case(client):
-    response = client.post("/api/cases/", json=base_case)
+    response = client.post("/cases/", json=base_case)
     response_json = generalize_json_data(response.json())
     assert response.status_code == 201
     assert response_json == base_case
@@ -24,7 +24,7 @@ async def test_create_case(client):
 @pytest.mark.asyncio
 async def test_get_all_cases(client):
     await seed_data(client)
-    response = client.get("/api/cases")
+    response = client.get("/cases/")
     assert response.status_code == 200
     assert len(response.json()) > 0
 
@@ -32,7 +32,7 @@ async def test_get_all_cases(client):
 @pytest.mark.asyncio
 async def test_get_cases_paged(client):
     await seed_data(client)
-    response = client.get("/api/cases?page_number=0&page_size=10")
+    response = client.get("/cases/?page_number=0&page_size=10")
     assert response.status_code == 200
     assert len(response.json()) > 0
 
@@ -40,7 +40,7 @@ async def test_get_cases_paged(client):
 @pytest.mark.asyncio
 async def test_get_case(client):
     await seed_data(client)
-    response = client.get("/api/cases/1")
+    response = client.get("/cases/1")
     response_json = generalize_json_data(response.json())
     response_json["applicant_id"] = 0
     response_json.pop("applicant")
@@ -53,7 +53,7 @@ async def test_update_case(client):
     await seed_data(client)
     updated_case = base_case.copy()
     updated_case["status"] = "In Progress"
-    response = client.put("/api/cases/1", json=updated_case)
+    response = client.put("/cases/1", json=updated_case)
     response_json = generalize_json_data(response.json())
     assert response.status_code == 200
     assert response_json == updated_case
@@ -62,19 +62,19 @@ async def test_update_case(client):
 @pytest.mark.asyncio
 async def test_update_case_invalid_id(client):
     await seed_data(client)
-    response = client.put("/api/cases/-1", json=base_case)
+    response = client.put("/cases/-1", json=base_case)
     assert response.status_code == 404
 
 
 @pytest.mark.asyncio
 async def test_delete_case(client):
     await seed_data(client)
-    response = client.delete("/api/cases/1")
+    response = client.delete("/cases/1")
     assert response.status_code == 204
 
 
 @pytest.mark.asyncio
 async def test_delete_case_invalid_id(client):
     await seed_data(client)
-    response = client.delete("/api/cases/-1")
+    response = client.delete("/cases/-1")
     assert response.status_code == 404

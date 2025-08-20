@@ -1,10 +1,8 @@
-from datetime import datetime
-
 from fastapi import HTTPException
 from sqlalchemy.orm import Session, joinedload
 
 from app.cases.models import DBCase
-from app.cases.schemas import CaseBase
+from app.cases.schemas import CaseCreate, CaseUpdate
 from app.utils import get_next_page, get_page_count, get_prev_page
 
 
@@ -19,6 +17,15 @@ def get_items(db: Session, page_number: int, page_size: int):
         "prev_page": get_prev_page(page_number),
         "next_page": get_next_page(item_count, page_number, page_size),
     }
+
+
+def create_item(db: Session, case: CaseCreate):
+    db_case = DBCase(**case.model_dump())
+    db.add(db_case)
+    db.commit()
+    db.refresh(db_case)
+
+    return db_case
 
 
 def get_item(db: Session, case_id: int):
@@ -58,6 +65,7 @@ def get_item(db: Session, case_id: int):
     return {
         "id": case.id,
         "status": case.status,
+        "applicant_id": case.applicant_id,
         "applicant": applicant_data,
         "assigned_to": case.assigned_to,
         "created_at": case.created_at,
@@ -65,25 +73,16 @@ def get_item(db: Session, case_id: int):
     }
 
 
-def update_item(db: Session, id: int, case: CaseBase):
+def update_item(db: Session, id: int, case: CaseUpdate):
     db_case = db.query(DBCase).filter(DBCase.id == id).first()
     if db_case is None:
-        raise HTTPException(status_code=404, detail="Case not founds")
+        raise HTTPException(status_code=404, detail="Case not found")
 
-    db_case.status = case.status
-    db_case.assigned_to = case.assigned_to
-    db_case.updated_at = datetime.now()
-    db.add(db_case)
-    db.commit()
-    db.refresh(db_case)
+    if case.status is not None:
+        db_case.status = case.status
+    if case.assigned_to is not None:
+        db_case.assigned_to = case.assigned_to
 
-    return db_case
-
-
-def create_item(db: Session, case: CaseBase):
-    db_case = DBCase(**case.model_dump())
-    db_case.created_at = datetime.now()
-    db_case.updated_at = datetime.now()
     db.add(db_case)
     db.commit()
     db.refresh(db_case)
@@ -94,7 +93,9 @@ def create_item(db: Session, case: CaseBase):
 def delete_item(db: Session, id: int):
     db_case = db.query(DBCase).filter(DBCase.id == id).first()
     if db_case is None:
-        raise HTTPException(status_code=404, detail="Case not founds")
+        raise HTTPException(status_code=404, detail="Case not found")
 
     db.query(DBCase).filter(DBCase.id == id).delete()
     db.commit()
+
+    return None
