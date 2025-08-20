@@ -5,9 +5,10 @@ from fastapi.security import HTTPBearer
 from starlette import status
 
 from app.auth import validate_jwt
+from app.config import settings
 
 router = APIRouter(
-    prefix="/api",
+    prefix=f"{settings.API_PREFIX}/admin",
     tags=["Admin"],
 )
 

@@ -5,13 +5,15 @@ import asyncio
 import json
 from datetime import datetime
 
+from app.config import settings
+
 router = APIRouter(
-    prefix="/api",
+    prefix=f"{settings.API_PREFIX}/health",
     tags=["Health"],
 )
 
 
-@router.get("/health", status_code=status.HTTP_200_OK)
+@router.get("/", status_code=status.HTTP_200_OK)
 def get_health():
     return {"health": "healthy"}
 
