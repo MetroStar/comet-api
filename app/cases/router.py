@@ -12,10 +12,11 @@ from app.cases.schemas import (
     CaseUpdate,
     CaseWithApplicant,
 )
+from app.config import settings
 from app.db import get_db
 
 router = APIRouter(
-    prefix="/cases",
+    prefix=f"{settings.API_PREFIX}/cases",
     tags=["Cases"],
     responses={404: {"description": "Endpoint not found"}},
 )
