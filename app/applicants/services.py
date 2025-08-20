@@ -57,3 +57,5 @@ def delete_item(db: Session, id: int):
 
     db.query(DBApplicant).filter(DBApplicant.id == id).delete()
     db.commit()
+
+    return None
