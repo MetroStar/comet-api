@@ -10,10 +10,6 @@ on:
 permissions:
   contents: read
 
-env:
-  DATABASE_URL: ${{ vars.DATABASE_URL }}
-  OIDC_CONFIG_URL: ${{ vars.OIDC_CONFIG_URL }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
