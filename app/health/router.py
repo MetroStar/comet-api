@@ -44,19 +44,63 @@ async def get_health_stream():
 
 @router.websocket("/ws")
 async def websocket_health(websocket: WebSocket):
-    """WebSocket endpoint for real-time server health updates"""
+    """WebSocket endpoint for real-time server health updates with ping/pong support"""
     await websocket.accept()
     try:
-        while True:
-            # Send health status with current datetime
-            health_data = {
-                "health": "healthy",
-                "datetime": datetime.now().isoformat(),
-                "timestamp": datetime.now().timestamp(),
-                "message": "Server health check via WebSocket",
-            }
-            await websocket.send_json(health_data)
-            await asyncio.sleep(2)  # Send update every 2 seconds
+        # Create tasks for sending periodic health updates and handling incoming
+        # messages
+        async def send_health_updates():
+            while True:
+                health_data = {
+                    "health": "healthy",
+                    "datetime": datetime.now().isoformat(),
+                    "timestamp": datetime.now().timestamp(),
+                    "message": "Server health check via WebSocket",
+                    "type": "health_update",
+                }
+                await websocket.send_json(health_data)
+                await asyncio.sleep(2)  # Send update every 2 seconds
+
+        async def handle_incoming_messages():
+            while True:
+                try:
+                    # Wait for incoming messages with a timeout
+                    message = await asyncio.wait_for(
+                        websocket.receive_json(), timeout=0.1
+                    )
+
+                    # Handle ping messages
+                    if message.get("type") == "ping":
+                        pong_response = {
+                            "type": "pong",
+                            "datetime": datetime.now().isoformat(),
+                            "timestamp": datetime.now().timestamp(),
+                            "message": "Pong response from server",
+                        }
+                        if "id" in message:
+                            pong_response["id"] = message["id"]
+                        await websocket.send_json(pong_response)
+
+                    if message.get("type") == "message":
+                        message_response = {
+                            "type": "message",
+                            "datetime": datetime.now().isoformat(),
+                            "timestamp": datetime.now().timestamp(),
+                            "message": "Received message from client",
+                        }
+                        if "id" in message:
+                            message_response["id"] = message["id"]
+                        await websocket.send_json(message_response)
+
+                except TimeoutError:
+                    # No message received, continue
+                    continue
+                except Exception:
+                    # Message parsing error or connection issue
+                    break
+
+        # Run both tasks concurrently
+        await asyncio.gather(send_health_updates(), handle_incoming_messages())
     except WebSocketDisconnect:
         # Client disconnected, exit gracefully
-        pass  # Client disconnected, exit gracefully
+        pass
